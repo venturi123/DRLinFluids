@@ -1,4 +1,5 @@
 # DRLinFluids
 
-> **Note**  
-> **This page is currently an empty placeholder, and the actual code will be released upon publication of the manuscript in the peer review literature.** We invite all users to further discuss and ask for help directly on Github, through the issue system, and we commit to helping develop a community around the DRLinFluids framework by providing in-depth documentation and help to new users.
+Our the manuscript, [DRLinFluids---An open-source python platform of coupling Deep Reinforcement Learning and OpenFOAM](https://aip.scitation.org/doi/10.1063/5.0103113), has been published. 
+
+To provide open source support as soon as possible. We build an additional repository [DRLinFluids-examples](https://github.com/venturi123/DRLinFluids-examples) for quick understanding and testing, and the user-friendly DRLinFluids package will be uploaded on this page in the near future.
