@@ -1,12 +1,9 @@
 # DRLinFluids
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/venturi123/DRLinFluids/blob/main/LICENSE)
 
-DRLinFluids is a flexible and scalable package to utilize Deep Reinforcement Learning in the field of Computational Fluid Dynamics (CFD).
+DRLinFluids is a flexible package to utilize Deep Reinforcement Learning in the field of Computational Fluid Dynamics (CFD).
 
-Note: This package is still in development. The API is not stable yet. We invite all users to discuss further and ask for help directly on GitHub, through the issue system, and we commit to helping develop a community around the DRLinFluids framework by providing in-depth documentation and help to new users.
-
-The package is developed under Ubuntu 20.04 LTS and OpenFOAM 8.
-
+**Note: This package is still in rapid development cycle under Ubuntu 20.04 LTS and OpenFOAM 8. The APIs are not stable yet. We recommend users to keep the package at the latest version.**
 
 ## Table of contents
 
@@ -58,7 +55,7 @@ Please cite the framework as follows if you use it in your publications:
 Qiulei Wang (王秋垒), Lei Yan (严雷), Gang Hu (胡钢), Chao Li (李朝), Yiqing Xiao (肖仪清), Hao Xiong (熊昊), Jean Rabault, and Bernd R. Noack , "DRLinFluids: An open-source Python platform of coupling deep reinforcement learning and OpenFOAM", Physics of Fluids 34, 081801 (2022) https://doi.org/10.1063/5.0103113
 ```
 
-For more formats, please see https://aip.scitation.org/action/showCitFormats?type=show&doi=10.1063%2F5.0103113.
+For more citation formats, please see https://aip.scitation.org/action/showCitFormats?type=show&doi=10.1063%2F5.0103113.
 
 
 ## Core development team and contributors
