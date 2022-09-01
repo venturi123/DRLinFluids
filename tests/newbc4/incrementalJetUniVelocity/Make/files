@@ -1,0 +1,3 @@
+incrementalJetUniVelocityFvPatchVectorField.C
+
+LIB = $(FOAM_USER_LIBBIN)/libincrementalJetUniVelocity

@@ -1,0 +1,267 @@
+#!/bin/bash
+
+test()
+{
+    echo "test"
+}
+
+cleanTimeDirectories()
+{
+    echo "Cleaning case $PWD"
+    zeros=""
+    while [ ${#zeros} -lt 8 ]
+    do
+        rm -rf ./"0.$zeros"[1-9]* ./"-0.$zeros"[1-9]*
+        zeros="0$zeros"
+    done
+    rm -rf ./[1-9]* ./-[1-9]*
+}
+
+
+# Various files (logs, paraview, etc)
+cleanAuxiliary()
+{
+    rm -rf \
+        ./log ./log.* ./log-* ./logSummary.* \
+        ./.fxLock ./*.xml ./ParaView* ./paraFoam* \
+        ./*.blockMesh ./*.foam ./*.OpenFOAM \
+        ./.setSet
+}
+
+
+cleanAdiosOutput()
+{
+    if [ -d adiosData ] && [ -d system ]
+    then
+        rm -rf adiosData
+    fi
+}
+
+
+cleanDynamicCode()
+{
+    if [ -d dynamicCode ] && [ -d system ]
+    then
+        rm -rf dynamicCode
+    fi
+}
+
+
+cleanSnappyFiles()
+{
+    rm -f \
+        constant/polyMesh/cellLevel \
+        constant/polyMesh/pointLevel \
+        constant/polyMesh/refinementHistory \
+        constant/polyMesh/level0Edge \
+        constant/polyMesh/surfaceIndex
+    rm -f \
+        processor*/constant/polyMesh/cellLevel \
+        processor*/constant/polyMesh/pointLevel \
+        processor*/constant/polyMesh/refinementHistory \
+        processor*/constant/polyMesh/level0Edge \
+        processor*/constant/polyMesh/surfaceIndex
+    rm -f \
+        constant/cellLevel \
+        constant/pointLevel \
+        0/cellLevel \
+        0/pointLevel
+    rm -f \
+        processor*/constant/cellLevel \
+        processor*/constant/pointLevel \
+        processor*/0/cellLevel \
+        processor*/0/pointLevel
+}
+
+
+cleanOptimisation()
+{
+    rm -rf optimisation
+    rm -rf constant/controlPoints
+}
+
+
+cleanPostProcessing()
+{
+    rm -rf Ensight EnSight ensightWrite insitu VTK
+    rm -rf postProcessing
+    rm -rf postProcessing-*
+    rm -rf cuttingPlane
+    rm -rf surfaceSampling
+}
+
+
+cleanCase()
+{
+    cleanTimeDirectories
+    cleanAdiosOutput
+    cleanAuxiliary
+    cleanDynamicCode
+    cleanOptimisation
+    cleanPostProcessing
+
+    rm -rf processor*
+    rm -rf TDAC
+    rm -rf probes*
+    rm -rf forces*
+    rm -rf graphs*
+    rm -rf sets
+    rm -rf system/machines
+
+    # Possible blockMesh output
+    rm -f blockTopology.vtu blockFaces.vtp blockTopology.obj blockCentres.obj
+
+    # From mpirunDebug
+    rm -f gdbCommands  mpirun.schema
+
+    cleanSnappyFiles
+    rm -f 0/cellDist
+
+    (
+        cd constant 2>/dev/null || exit 0
+
+        rm -rf \
+          cellDecomposition cellToRegion cellLevel* pointLevel* \
+          tetDualMesh \
+          ;
+
+        # Old constant/polyMesh location for blockMeshDict still in use?
+        # - emit a gentle warningww
+        if [ -e polyMesh/blockMeshDict.m4 ]
+        then
+            rm -f polyMesh/blockMeshDict
+            echo
+            echo "Warning: not removing constant/polyMesh/"
+            echo "    It contains a 'blockMeshDict.m4' file."
+            echo "    Relocate the file to system/ to avoid this warning"
+            echo
+        elif [ -e polyMesh/blockMeshDict ]
+        then
+            echo
+            echo "Warning: not removing constant/polyMesh/"
+            echo "    It contains a 'blockMeshDict' file."
+            echo "    Relocate the file to system/ to avoid this warning"
+        else
+            # Remove polyMesh entirely if there is no blockMeshDict
+            rm -rf polyMesh
+        fi
+    )
+
+    if [ -e system/blockMeshDict.m4 ]
+    then
+        rm -f system/blockMeshDict
+    fi
+}
+
+
+# Frequently used - cleanCase and rm -rf 0/
+cleanCase0()
+{
+    cleanCase
+    rm -rf 0
+}
+
+
+cleanCase1()
+{
+    cleanTimeDirectories
+    cleanAdiosOutput
+    cleanAuxiliary
+    cleanDynamicCode
+    cleanOptimisation
+    cleanPostProcessing
+
+    rm -rf processor*
+    rm -rf TDAC
+    rm -rf probes*
+    rm -rf forces*
+    rm -rf graphs*
+    rm -rf sets
+    rm -rf system/machines
+
+    # Possible blockMesh output
+    rm -f blockTopology.vtu blockFaces.vtp blockTopology.obj blockCentres.obj
+
+    # From mpirunDebug
+    rm -f gdbCommands  mpirun.schema
+
+    cleanSnappyFiles
+    rm -f 0/cellDist
+
+    if [ -e system/blockMeshDict.m4 ]
+    then
+        rm -f system/blockMeshDict
+    fi
+}
+
+
+removeCase()
+{
+    echo "Removing case ${1:-unknown}"
+    [ "$#" -ge 1 ] && rm -rf "$1"
+}
+
+
+cleanSamples()
+{
+    rm -rf sets samples sampleSurfaces
+}
+
+
+cleanUcomponents()
+{
+    rm -rf 0/Ux 0/Uy 0/Uz
+}
+
+
+cleanFaMesh()
+{
+    (
+        cd constant 2>/dev/null || exit 0
+
+        # Old constant/polyMesh location for blockMeshDict still in use?
+        # - emit a gentle warning
+        if [ -e faMesh/faMeshDefinition ]
+        then
+            rm -f faMesh/faceLabels* faMesh/faBoundary*
+            echo
+            echo "Warning: not removing the constant/faMesh/ directory"
+            echo "    It contains a 'faMeshDefinition' file"
+            echo "    Relocate the file to system/ to avoid this warning"
+            echo
+        else
+            # Remove faMesh/ entirely if there is no faMeshDefinition
+            rm -rf faMesh
+        fi
+    )
+}
+
+
+cleanApplication()
+{
+    echo "Cleaning application $PWD"
+    wclean
+}
+
+
+clean()
+{
+    cleanTimeDirectories
+    cleanAdiosOutput
+    cleanAuxiliary
+    cleanDynamicCode
+    cleanOptimisation
+    cleanPostProcessing
+}
+
+
+# Check if the function exists (bash specific)
+if declare -f "$1" > /dev/null
+then
+  # call arguments verbatim
+  "$@"
+else
+  # Show a helpful error
+  echo "'$1' is not a known function name" >&2
+  exit 1
+fi

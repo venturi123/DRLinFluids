@@ -127,3 +127,16 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+**__pycache__
+
+# PyCharm
+.idea/
+
+# RStudio project files
+**.Rproj.user/
+**.Rproj.user*
+**.Rproj
+**.Rhistory
+
+# MacOS
+.DS_Store
