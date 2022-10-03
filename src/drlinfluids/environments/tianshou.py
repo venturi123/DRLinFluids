@@ -112,7 +112,6 @@ class OpenFoam(gym.Env):
 		                               shape=(len(self.agent_params['variables_q0']),), dtype=np.float32)
 		self.seed()
 
-	@abstractmethod
 	def step(self,actions: np.ndarray):
 		"""Run one timestep of the environment's dynamics."""
 		self.trajectory_start_time = time()
