@@ -80,6 +80,10 @@ Interested in contributing? Check out the contributing guidelines. Please note t
 
 We invite all users to further discuss and ask for help directly on Github, through the issue system, and we commit to helping develop a community around the DRLinFluids framework by providing in-depth documentation and help to new users.
 
+## Continue work
+In the future the following functionality is planned to be added:
+- DMD/DMDc for simulation
+- Apply to other bluff bodies
 
 ## License
 `DRLinFluids` is licensed under the terms of the Apache License 2.0 license.
