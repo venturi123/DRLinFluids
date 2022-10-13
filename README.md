@@ -46,6 +46,9 @@ Please see `/examples` directory for quick start.
 
 Besides, we also build an additional repository [DRLinFluids-examples](https://github.com/venturi123/DRLinFluids-examples) for quick understanding and testing, and the user-friendly DRLinFluids package will be uploaded on this page in the near future.
 
+We have developed Docker and Singularity containers with examples of DRLinFluids. For specific application commands, please refer to [DRLinFluids-examples](https://github.com/venturi123/DRLinFluids-examples).
+
+Singularity containers is the state of the art and the promising future for seamless deployment of computations and workloads across OSes, machines, clusters etc: https://docs.sylabs.io/guides/3.5/user-guide/introduction.html https://en.wikipedia.org/wiki/Singularity_(software) , example on some HPC systems: https://documentation.sigma2.no/software/containers.html https://blogs.iu.edu/ncgas/2021/04/29/a-quick-intro-to-singularity-containers/ https://centers.hpc.mil/users/singularity.html https://ulhpc-tutorials.readthedocs.io/en/latest/containers/singularity/ 
 
 ## How to cite
 
