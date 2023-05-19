@@ -1,0 +1,113 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  8
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       polyBoundaryMesh;
+    location    "constant/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+13
+(
+    IN
+    {
+        type            patch;
+        inGroups        List<word> 1(wall);
+        nFaces          125;
+        startFace       45885;
+    }
+    OUT
+    {
+        type            patch;
+        inGroups        List<word> 1(wall);
+        nFaces          125;
+        startFace       46010;
+    }
+    SYM
+    {
+        type            symmetry;
+        inGroups        List<word> 1(symmetry);
+        nFaces          380;
+        startFace       46135;
+    }
+    RECT
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          92;
+        startFace       46515;
+    }
+    JET3
+    {
+        type            patch;
+        inGroups        List<word> 1(wall);
+        nFaces          1;
+        startFace       46607;
+    }
+    JET8
+    {
+        type            patch;
+        inGroups        List<word> 1(wall);
+        nFaces          1;
+        startFace       46608;
+    }
+    JET1
+    {
+        type            patch;
+        inGroups        List<word> 1(wall);
+        nFaces          1;
+        startFace       46609;
+    }
+    JET2
+    {
+        type            patch;
+        inGroups        List<word> 1(wall);
+        nFaces          1;
+        startFace       46610;
+    }
+    JET4
+    {
+        type            patch;
+        inGroups        List<word> 1(wall);
+        nFaces          1;
+        startFace       46611;
+    }
+    JET5
+    {
+        type            patch;
+        inGroups        List<word> 1(wall);
+        nFaces          1;
+        startFace       46612;
+    }
+    JET6
+    {
+        type            patch;
+        inGroups        List<word> 1(wall);
+        nFaces          1;
+        startFace       46613;
+    }
+    JET7
+    {
+        type            patch;
+        inGroups        List<word> 1(wall);
+        nFaces          1;
+        startFace       46614;
+    }
+    frontAndBackPlanes
+    {
+        type            empty;
+        inGroups        List<word> 1(empty);
+        nFaces          46250;
+        startFace       46615;
+    }
+)
+
+// ************************************************************************* //

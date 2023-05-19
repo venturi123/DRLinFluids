@@ -1,0 +1,97 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  8
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       polyBoundaryMesh;
+    location    "constant/polyMesh";
+    object      boundary;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+11
+(
+    inlet
+    {
+        type            patch;
+        nFaces          134;
+        startFace       36597;
+    }
+    outlet
+    {
+        type            patch;
+        nFaces          134;
+        startFace       36731;
+    }
+    syms
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          294;
+        startFace       36865;
+    }
+    front1
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          2;
+        startFace       37159;
+    }
+    front2
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          2;
+        startFace       37161;
+    }
+    middle1
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          2;
+        startFace       37163;
+    }
+    middle2
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          2;
+        startFace       37165;
+    }
+    back1
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          2;
+        startFace       37167;
+    }
+    back2
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          2;
+        startFace       37169;
+    }
+    cylinder
+    {
+        type            wall;
+        inGroups        List<word> 1(wall);
+        nFaces          128;
+        startFace       37171;
+    }
+    frontAndBackPlanes
+    {
+        type            empty;
+        inGroups        List<word> 1(empty);
+        nFaces          36948;
+        startFace       37299;
+    }
+)
+
+// ************************************************************************* //
