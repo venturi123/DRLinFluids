@@ -1,0 +1,125 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  8
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      motionProperties;
+}
+
+dynamicFvMesh       dynamicMotionSolverFvMesh;
+
+displacementLaplacianCoeffs
+{
+    diffusivity     quadratic inverseDistance (cylinder front1 front2 middle1 middle2 back1 back2);
+}
+
+motionSolverLibs    ("libsixDoFRigidBodyMotion.so");
+
+motionSolver        sixDoFRigidBodyMotion;
+
+    patches        (cylinder front1 front2 middle1 middle2 back1 back2);//
+    innerDistance   0.10;
+    outerDistance   0.508;
+
+    report          on;
+
+    solver
+    {
+      
+        type symplectic;   // Position integration coefficient
+    }
+
+    accelerationRelaxation 0.95;
+    accelerationDamping 0.95;	
+
+    //- prescribedRotation requires some sub-iterations to converge faster
+    //  to desired value of omega.
+    //nIter   3;
+
+    rhoInf   1;
+    rho      rhoInf;
+    
+    g  (0 0 0);
+     
+     velocity (0 0 0);
+    centreOfMass    (0 0 0);
+    mass            0.00774;  //0.11 0.107 0.108 0.109 0.11 0.12 0.115 0.112 0.1105
+                            // 0.12 0.111 0.105 0.95 0.85
+    momentOfInertia   (1 1 1);
+
+    
+////////////////////////////////////////////////////
+
+    constraints
+    {
+       // yTranslation
+       // {
+       //    sixDoFRigidBodyMotionConstraint  line;
+       //    direction (0 1 0);
+       // }
+
+       xyTranslation
+       {
+          sixDoFRigidBodyMotionConstraint  line;
+          direction (0 1 0);
+       }
+       
+       // noTranslation
+       // {
+       //    sixDoFRigidBodyMotionConstraint  point;
+       // }
+
+       // zRotation
+       // {
+       //    sixDoFRigidBodyMotionConstraint  axis;
+       //    axis (0 0 1);
+       // }
+
+       noRotation
+       {
+          sixDoFRigidBodyMotionConstraint  orientation;
+        //  centreOfRotation                (0 0 1);
+       }
+    }
+    
+    restraints
+    {
+            //springStiffness   #calc "14.84";
+        springStiffness   18.9449;
+        springDamping     0;
+        springRestLength  0;
+    
+        spring1
+        {
+            sixDoFRigidBodyMotionRestraint linearSpring;
+            refAttachmentPt (0 0 0);
+            anchor          (0 0 0);
+            stiffness       $springStiffness;
+            damping         $springDamping;
+            restLength      $springRestLength;
+        }
+  /*      
+        spring2
+        {
+            sixDoFRigidBodyMotionRestraint linearSpring;
+            refAttachmentPt (0 0 0);
+            anchor          (0.0016 0 0);
+            stiffness       $springStiffness;
+            damping         $springDamping;
+            restLength      $springRestLength;
+        }
+    */
+    }
+    
+//}
+    
+
+// ************************************************************************* //
