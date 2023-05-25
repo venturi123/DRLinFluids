@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "incrementalJetParabolicVelocityFvPatchVectorField.H": "cpp",
-        "incrementalJetParabolicVelocityFvPatchVectorField.C": "cpp"
-    }
-}

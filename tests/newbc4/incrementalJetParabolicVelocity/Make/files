@@ -1,3 +1,0 @@
-incrementalJetParabolicVelocityFvPatchVectorField.C
-
-LIB = $(FOAM_USER_LIBBIN)/libincrementalJetParabolicVelocity
