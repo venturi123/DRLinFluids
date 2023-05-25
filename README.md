@@ -38,7 +38,7 @@ Example on some HPC systems:
 ### From Singularity (Recommended)
 Here we provide a one-line command for installing Singularity and DRLinFluids.
 ```bash
-wget https://raw.githubusercontent.com/venturi123/DRLinFluids/main/DRLinFluids_install.sh && sudo bash drlinfluids_install.sh && singularity version
+wget https://raw.githubusercontent.com/venturi123/DRLinFluids/main/DRLinFluids_install.sh && sudo bash DRLinFluids_install.sh && singularity version
 ```
 If the correct Singularity version information is displayed, use the following command to enter the container.
 ```bash
