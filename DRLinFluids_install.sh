@@ -69,7 +69,7 @@ install_singularity() {
             echo -e "${Yellow}Detected that Singularity is already installed.${Font}"
         else
             sudo apt update
-            sudo apt -y install runc wget
+            sudo apt -y install runc wget curl cryptsetup-bin uidmap
             wget ${DOWNLOAD_LINK} -O ${WORK_PATH}/singularity-ce_${LATEST_VERSION}.${SUFFIX}
             sudo ${PKG_INSTALLER} ${WORK_PATH}/singularity-ce_${LATEST_VERSION}.${SUFFIX}
             rm -rf ${WORK_PATH}/singularity-ce_${LATEST_VERSION}.${SUFFIX}
@@ -84,7 +84,7 @@ install_singularity() {
             echo -e "${Yellow}Detected that Singularity is already installed.${Font}"
         else
             sudo yum update
-            sudo yum -y install runc wget
+            sudo yum -y install runc wget curl cryptsetup-bin uidmap
             wget ${DOWNLOAD_LINK} -O ${WORK_PATH}/singularity-ce_${LATEST_VERSION}.${SUFFIX}
             sudo ${PKG_INSTALLER} ${WORK_PATH}/singularity-ce_${LATEST_VERSION}.${SUFFIX}
             rm -rf ${WORK_PATH}/singularity-ce_${LATEST_VERSION}.${SUFFIX}
@@ -97,3 +97,5 @@ install_singularity() {
 
 install_singularity
 singularity pull DRLinFluids.sif library://qlwang/main/drlinfluids:latest
+
+rm -rf ${WORK_PATH}/DRLinFluids_install.sh
