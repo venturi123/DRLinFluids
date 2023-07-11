@@ -93,21 +93,21 @@ When you mount a Singularity image, it will be mounted with the directories `$HO
 ```bash
 cd DRLinFluids/examples
 
-# Compile the cumstom boundary condition
+# Compile the custom boundary condition
 # (which have been compiled in DRLinFluids singularity container)
 cd newbc
 ./wmakeall
 
 # Run 2D cylinder case
-cd DRLinfluids/cylinder2D_multiprocessing
+cd cylinder2D_multiprocessing
 python DRLinFluids_cylinder/launch_multiprocessing_traning_cylinder.py
 
 # Run 2D square case
-cd DRLinfluids/square2D_multiprocessing
+cd square2D_multiprocessing
 python DRLinFluids_square/launch_multiprocessing_traning_square.py
 
 # Run square2D_VIV case
-cd DRLinfluids/square2D_VIV_multiprocessing
+cd square2D_VIV_multiprocessing
 python DRLinFluids_square2D_VIV/launch_multiprocessing_traning_square2D_VIV.py
 ```
 
