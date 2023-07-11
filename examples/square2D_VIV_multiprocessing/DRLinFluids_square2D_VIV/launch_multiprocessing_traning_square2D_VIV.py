@@ -91,7 +91,7 @@ def test_sac_with_il(args=get_args()):
         'delta_t': 0.001,
         'solver': 'pimpleFoam',
         'num_processor': 4,
-        'of_env_init': '.  /opt/openfoam8/etc/bashrc',
+        'of_env_init': '. /opt/openfoam8/etc/bashrc',
         'cfd_init_time': 0.0125,  # 初始化流场，初始化state
         'num_dimension': 2,
         'verbose': False

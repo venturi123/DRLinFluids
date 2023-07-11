@@ -51,12 +51,12 @@ drl
 of8
 ```
 
-or install Singularity-CE manually.
+### From Singularity manually
 ```bash
 sudo apt update
 sudo apt install runc wget
-wget https://github.com/sylabs/singularity/releases/download/v3.11.3/singularity-ce_VERSION.deb
-sudo dpkg -i ./singularity-ce_VERSION.deb
+wget https://github.com/sylabs/singularity/releases/download/v3.11.3/singularity-ce_${VERSION}.deb
+sudo dpkg -i ./singularity-ce_${VERSION}.deb
 
 # Check the installation status of Singularity
 singularity version
@@ -89,6 +89,27 @@ We have merge the examples repository [DRLinFluids-examples](https://github.com/
 When you mount a Singularity image, it will be mounted with the directories `$HOME`, `/tmp`, `/proc`, `/sys`, `/dev`, and `$PWD` by default. You can move your own cases to the `$HOME` directory or its subdirectories, or use the `--bind` argument to bind other storage devices. For example, if you need to work under the `/media` directory, you can use the following command: 
 `singularity shell --bind /media DRLinFluids.sif`
 
+### Run step by step
+```bash
+cd DRLinFluids/examples
+
+# Compile the cumstom boundary condition
+# (which have been compiled in DRLinFluids singularity container)
+cd newbc
+./wmakeall
+
+# Run 2D cylinder case
+cd DRLinfluids/cylinder2D_multiprocessing
+python DRLinFluids_cylinder/launch_multiprocessing_traning_cylinder.py
+
+# Run 2D square case
+cd DRLinfluids/square2D_multiprocessing
+python DRLinFluids_square/launch_multiprocessing_traning_square.py
+
+# Run square2D_VIV case
+cd DRLinfluids/square2D_VIV_multiprocessing
+python DRLinFluids_square2D_VIV/launch_multiprocessing_traning_square2D_VIV.py
+```
 
 ## How to cite
 

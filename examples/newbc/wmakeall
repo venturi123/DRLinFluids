@@ -1,0 +1,16 @@
+#!/bin/bash
+
+subdirs=$(find $(pwd) -maxdepth 1 -type d)
+
+. /opt/openfoam8/etc/bashrc
+
+for dir in $subdirs
+do
+  if [ "$dir" != "$(pwd)" ] && [ "$dir" != "$(pwd)/.." ]
+  then
+    # echo "Entering directory: $dir"
+    cd $dir
+    wmake
+    cd ..
+  fi
+done
