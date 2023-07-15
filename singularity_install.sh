@@ -96,6 +96,4 @@ install_singularity() {
 }
 
 install_singularity
-singularity pull DRLinFluids.sif library://qlwang/main/drlinfluids:latest
-
-rm -rf ${WORK_PATH}/DRLinFluids_install.sh
+rm -rf ${WORK_PATH}/singularity_install.sh

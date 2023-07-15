@@ -35,20 +35,50 @@ Example on some HPC systems:
 - https://researchcomputing.princeton.edu/support/knowledge-base/singularity
 - https://hpc.nih.gov/apps/singularity.html
 
-### From Singularity (Recommended)
-Here we provide a one-line command for installing Singularity and DRLinFluids.
+Also, we recommend a wonderful [practical tutorial](https://github.com/jerabaul29/guidelines_workflow_project) here on how to use singularity technology, feel free to watch it.
+
+### From Singularity (Preferred by most users)
+Here we provide a one-line command for installing Singularity and DRLinFluids automaticlly.
 ```bash
-wget https://raw.githubusercontent.com/venturi123/DRLinFluids/main/DRLinFluids_install.sh && sudo bash DRLinFluids_install.sh && singularity version
+wget https://raw.githubusercontent.com/venturi123/DRLinFluids/main/singularity_install.sh && sudo bash singularity_install.sh && singularity version
 ```
-If the correct Singularity version information is displayed, use the following command to enter the container.
+If the correct Singularity version information is displayed, use the following command to pull and enter the container.
 ```bash
+# Pull DRLinFluids image from Singularity library (may take a while)
+singularity pull DRLinFluids.sif library://qlwang/main/drlinfluids:latest
+
+# Verify the image (optional)
+singularity verify DRLinFluids.sif
+
+# Enter DRLinFluids container
 singularity shell DRLinFluids.sif
 
 # Activate DRLinFluids environment
 drl
 
-# Activate OpenFOAM8 environment
+# or Activate OpenFOAM 8 environment
 of8
+```
+
+### From Singularity `tar` package (Recommanded for stale Singularity version)
+There may be a variety of reasons why you can only use a fairly old version of singularity, and we also provide a compressed image file as a tar archive. After extracting it, you can get a `folder-format` image instead of a `sif` image.
+
+1. Go to the [Releases](https://github.com/venturi123/DRLinFluids/releases) page
+2. Find the latest version and download all `DRLinFluids-v0.1.1.tar.gz__part.xx` (take v0.1.1 for example) and `sha256sums` (for validation) files in the same folder
+3. Following the next steps
+```bash
+cat DRLinFluids-v0.1.1.tar.gz__part.?? > DRLinFluids-v0.1.1.tar.gz
+
+sha256sum --check sha256sums
+
+# The sha256sum line should print:
+# DRLinFluids-v0.1.1.tar.gz: OK
+
+# Then untar the file
+tar xfp DRLinFluids-v0.1.1.tar.gz
+
+# To enter the container
+singularity shell --writable --fakeroot --no-home DRLinFluids-v0.1.1/
 ```
 
 ### From Singularity manually
@@ -63,6 +93,7 @@ singularity version
 
 # Pull the Singularity image from Singularity library
 singularity pull DRLinFluids.sif library://qlwang/main/drlinfluids:latest
+singularity shell --writable --fakeroot --no-home DRLinFluids-v0.1.1/
 ```
 
 Of course, you can install the package from PyPI or source code. However, we do not recommend it as a first choice because it may cause potential compatibility issues.
@@ -85,31 +116,44 @@ Please see `/examples` directory for quick start.
 
 We have merge the examples repository [DRLinFluids-examples](https://github.com/venturi123/DRLinFluids-examples) into the main repository. Now you can find all the examples in the `/examples` directory.
 
-**Note**
-When you mount a Singularity image, it will be mounted with the directories `$HOME`, `/tmp`, `/proc`, `/sys`, `/dev`, and `$PWD` by default. You can move your own cases to the `$HOME` directory or its subdirectories, or use the `--bind` argument to bind other storage devices. For example, if you need to work under the `/media` directory, you can use the following command: 
-`singularity shell --bind /media DRLinFluids.sif`
+> **Note**
+> When you mount a Singularity image, it will be mounted with the directories `$HOME`, `/tmp`, `/proc`, `/sys`, `/dev`, and `$PWD` by default. You can move your own cases to the `$HOME` directory or its subdirectories, or use the `--bind` argument to bind other storage devices. For example, if you need to work under the `/media` directory, you can use the command: `singularity shell --bind /media DRLinFluids.sif`
 
 ### Run step by step
 ```bash
 cd DRLinFluids/examples
 
-# Compile the custom boundary condition
-# (which have been compiled in DRLinFluids singularity container)
+# Compile the custom boundary condition (No need, just for illustration only)
+# (All custom boundary condition have been compiled in DRLinFluids container)
 cd newbc
 ./wmakeall
 
-# Run 2D cylinder case
+# or run 2D cylinder case
 cd cylinder2D_multiprocessing
 python DRLinFluids_cylinder/launch_multiprocessing_traning_cylinder.py
 
-# Run 2D square case
+# or run 2D square case
 cd square2D_multiprocessing
 python DRLinFluids_square/launch_multiprocessing_traning_square.py
 
-# Run square2D_VIV case
+# or run square2D_VIV case
 cd square2D_VIV_multiprocessing
 python DRLinFluids_square2D_VIV/launch_multiprocessing_traning_square2D_VIV.py
 ```
+The following contents indicate a successful runnning of DRLinFluids
+```
+(DRLinFluids) Singularity> python DRLinFluids_cylinder/launch_multiprocessing_traning_cylinder.py
+OpenFOAM_init running time： 2.67 s
+OpenFOAM_init running time： 2.39 s
+OpenFOAM_init running time： 2.49 s
+OpenFOAM_init running time： 2.43 s
+OpenFOAM_init running time： 2.43 s
+WARNING:root:No min_value bound specified for state.
+Agent defined DONE!
+Runner defined DONE!
+Episodes:   0%|  
+```
+Then you just have to wait patiently and marvel at the amazing power of DRL : )
 
 ## How to cite
 
@@ -139,6 +183,7 @@ DRLinFluids is currently developed and maintained by
 1. [DRLinFluids: An open-source Python platform of coupling deep reinforcement learning and OpenFOAM](https://doi.org/10.1063/5.0103113) (Archived to DRLinFluids examples)
 2. [Deep reinforcement learning-based active flow control of vortex-induced vibration of a square cylinder](https://doi.org/10.1063/5.0152777) (Archived to DRLinFluids examples)
 
+To be continued ...
 ## Contributing
 Interested in contributing? Check out the contributing guidelines. Please note that this project is released with a Code of Conduct. By contributing to this project, you agree to abide by its terms.
 
