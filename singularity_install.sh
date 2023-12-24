@@ -96,4 +96,3 @@ install_singularity() {
 }
 
 install_singularity
-rm -rf ${WORK_PATH}/singularity_install.sh

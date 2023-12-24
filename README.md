@@ -38,9 +38,9 @@ Example on some HPC systems:
 Also, we recommend a wonderful [practical tutorial](https://github.com/jerabaul29/guidelines_workflow_project) here on how to use singularity technology, feel free to watch it.
 
 ### From Singularity (Preferred by most users)
-Here we provide a one-line command for installing Singularity and DRLinFluids automaticlly.
+Here we provide a one-line command for installing Singularity and DRLinFluids automatically.
 ```bash
-wget https://raw.githubusercontent.com/venturi123/DRLinFluids/main/singularity_install.sh && sudo bash singularity_install.sh && singularity version
+wget https://raw.githubusercontent.com/venturi123/DRLinFluids/main/singularity_install.sh && sudo bash singularity_install.sh && rm -rf singularity_install.sh && singularity version
 ```
 If the correct Singularity version information is displayed, use the following command to pull and enter the container.
 ```bash
