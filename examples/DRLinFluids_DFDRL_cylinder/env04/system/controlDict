@@ -1,0 +1,68 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  8
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     pimpleFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         0.75;
+
+deltaT          0.00025;
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.75;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      fixed;
+
+timePrecision   3;
+
+runTimeModifiable yes;
+
+adjustTimeStep  yes;
+
+maxCo           1;
+
+//maxDeltaT       0.1;
+
+libs ("libinletParabolicVelocity.so" "libjetParabolicVelocity.so" "libincrementalJetParabolicVelocity.so""libincrementallinearJetParabolicVelocity.so");
+// ************************************************************************* //
+
+functions
+{
+    #includeFunc  CourantNo
+    #includeFunc  residuals
+    #includeFunc  vorticity
+    #includeFunc  forceCoeffsIncompressible
+    #includeFunc  forcesIncompressible
+    #includeFunc  yPlus
+    #includeFunc  probes
+}
+
+
