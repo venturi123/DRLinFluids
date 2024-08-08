@@ -22,7 +22,7 @@ foam_params = {
     'delta_t': 0.0005,
     'solver': 'pimpleFoam',
     'num_processor': 5,
-    'of_env_init': '. /opt/openfoam8/etc/bashrc',
+    'of_env_init': 'source ~/OpenFOAM/OpenFOAM-8/etc/bashrc',
     'cfd_init_time': 0.005,
     'num_dimension': 2,
     'verbose': False
