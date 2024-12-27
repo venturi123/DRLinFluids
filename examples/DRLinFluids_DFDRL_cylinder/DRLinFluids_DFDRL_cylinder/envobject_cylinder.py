@@ -6,9 +6,9 @@ from DRLinFluids.environments import OpenFoam
 
 class FlowAroundSquareCylinder2D(OpenFoam):
     def reward_function(self):
-        vortex_shedding_period = 0.025
-        drug_coeffs_sliding_average = self.force_coeffs_sliding_average(vortex_shedding_period)[0]
-        lift_coeffs_sliding_average = self.force_coeffs_sliding_average(vortex_shedding_period)[1]
+        time_horizon = 0.025
+        drug_coeffs_sliding_average = self.force_coeffs_sliding_average(time_horizon)[0]
+        lift_coeffs_sliding_average = self.force_coeffs_sliding_average(time_horizon)[1]
         print(3.205 - drug_coeffs_sliding_average,0.1 * np.abs(lift_coeffs_sliding_average))
         return   3.205 - drug_coeffs_sliding_average - 0.1 * np.abs(lift_coeffs_sliding_average)
 
