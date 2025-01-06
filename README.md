@@ -96,25 +96,9 @@ singularity pull DRLinFluids.sif library://qlwang/main/drlinfluids:latest
 singularity shell --writable --fakeroot --no-home DRLinFluids-v0.1.1/
 ```
 
-Of course, you can install the package from PyPI or source code. However, we do not recommend it as a first choice because it may cause potential compatibility issues.
-### From PyPI
-
-```bash
-pip install drlinfluids
-```
-
-### From Source code
-
-```
-git clone https://github.com/venturi123/DRLinFluids.git
-pip3 install -e drlinfluids
-```
-
 ## Examples
 
 Please see `/examples` directory for quick start.
-
-We have merge the examples repository [DRLinFluids-examples](https://github.com/venturi123/DRLinFluids-examples) into the main repository. Now you can find all the examples in the `/examples` directory.
 
 > **Note**
 > When you mount a Singularity image, it will be mounted with the directories `$HOME`, `/tmp`, `/proc`, `/sys`, `/dev`, and `$PWD` by default. You can move your own cases to the `$HOME` directory or its subdirectories, or use the `--bind` argument to bind other storage devices. For example, if you need to work under the `/media` directory, you can use the command: `singularity shell --bind /media DRLinFluids.sif`
@@ -162,22 +146,6 @@ Please cite the framework as follows if you use it in your publications:
 ```
 Qiulei Wang (王秋垒), Lei Yan (严雷), Gang Hu (胡钢), Chao Li (李朝), Yiqing Xiao (肖仪清), Hao Xiong (熊昊), Jean Rabault, and Bernd R. Noack , "DRLinFluids: An open-source Python platform of coupling deep reinforcement learning and OpenFOAM", Physics of Fluids 34, 081801 (2022) https://doi.org/10.1063/5.0103113
 ```
-
-## Contributors
-
-DRLinFluids is currently developed and maintained by 
-
-[AIWE Lab, HITSZ](http://aiwe.hitsz.edu.cn)
-
-- [Qiulei Wang](https://github.com/venturi123)
-
-- [Lei Yan](https://github.com/1900360)
-
-- [Gang Hu](http://faculty.hitsz.edu.cn/hugang)
-
-[Jean Rabault](https://github.com/jerabaul29)
-
-[Bernd Noack](http://www.berndnoack.com/)
 
 ## Publications using DRLinFluids package
 1. [DRLinFluids: An open-source Python platform of coupling deep reinforcement learning and OpenFOAM](https://doi.org/10.1063/5.0103113) (Archived to DRLinFluids examples)
