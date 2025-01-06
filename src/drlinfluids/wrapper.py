@@ -50,10 +50,10 @@ def actions2dict(entry_dict, reinforcement_learning_var, agent_actions):
     mapping_dict = dict(zip(reinforcement_learning_var, agent_actions))
 
     entry_str_org = json.dumps(entry_dict, indent=4)
-    entry_str_temp = re.sub(r'{\n', r'{{\n', entry_str_org)
-    entry_str_temp = re.sub(r'}\n', r'}}\n', entry_str_temp)
-    entry_str_temp = re.sub(r'}$', r'}}', entry_str_temp)
-    entry_str_temp = re.sub(r'},', r'}},', entry_str_temp)
+    entry_str_temp = re.sub(r"{\n", r"{{\n", entry_str_org)
+    entry_str_temp = re.sub(r"}\n", r"}}\n", entry_str_temp)
+    entry_str_temp = re.sub(r"}$", r"}}", entry_str_temp)
+    entry_str_temp = re.sub(r"},", r"}},", entry_str_temp)
     entry_str_final = eval(f'f"""{entry_str_temp}"""', mapping_dict)
     actions_dict = json.loads(entry_str_final)
 
@@ -75,12 +75,14 @@ def dict2foam(flow_var_directory, actions_dict):
     from DRLinFluids.utils import dict2foam
     """
     for flow_var, flow_dict in actions_dict.items():
-        print('/'.join([flow_var_directory, flow_var]))
-        with open('/'.join([flow_var_directory, flow_var]), 'r+') as f:
+        print("/".join([flow_var_directory, flow_var]))
+        with open("/".join([flow_var_directory, flow_var]), "r+") as f:
             content = f.read()
             for entry, value_dict in flow_dict.items():
                 for keyword, value in value_dict.items():
-                    content = re.sub(f'({entry}(?:\n.*?)*{keyword}\s+).*;', f'\g<1>{value};', content)
+                    content = re.sub(
+                        f"({entry}(?:\n.*?)*{keyword}\s+).*;", f"\g<1>{value};", content
+                    )
                 # content = re.sub(f'({entry}(?:\n.*?)*value\s+uniform\s+).*;', f'\g<1>{value};', content)
             f.seek(0)
             f.truncate()

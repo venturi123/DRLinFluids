@@ -6,9 +6,9 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u"drlinfluids"
-copyright = u"2022, Qiulei Wang"
-author = u"Qiulei Wang"
+project = "drlinfluids"
+copyright = "2022, Qiulei Wang"
+author = "Qiulei Wang"
 
 # -- General configuration ---------------------------------------------------
 

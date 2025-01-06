@@ -8,8 +8,6 @@ import numpy as np
 import pandas as pd
 
 
-
-
 # class RingBuffer():
 #     """A 1D ring buffer using numpy arrays"""
 #     def __init__(self, length):
@@ -67,8 +65,6 @@ def freq_domain_analysis(data, const, threshold=0.5, min_distance=30) -> dict:
 
     return result
 """
-
-
 
 
 """
@@ -384,20 +380,21 @@ def get_history_data(dir_path, dimension=3):
     # dataframe_history_data.to_csv('./data.csv', index=False, header=False)
 """
 
+
 def resultant_force(dataframe, saver=False):
     Time = dataframe.iloc[:, 0]
     Fp = dataframe.iloc[:, [1, 2, 3]]
-    Fp.columns = ['FX', 'FY', 'FZ']
+    Fp.columns = ["FX", "FY", "FZ"]
     Fv = dataframe.iloc[:, [4, 5, 6]]
-    Fv.columns = ['FX', 'FY', 'FZ']
+    Fv.columns = ["FX", "FY", "FZ"]
     Fo = dataframe.iloc[:, [7, 8, 9]]
-    Fo.columns = ['FX', 'FY', 'FZ']
+    Fo.columns = ["FX", "FY", "FZ"]
     Mp = dataframe.iloc[:, [10, 11, 12]]
-    Mp.columns = ['MX', 'MY', 'MZ']
+    Mp.columns = ["MX", "MY", "MZ"]
     Mv = dataframe.iloc[:, [13, 14, 15]]
-    Mv.columns = ['MX', 'MY', 'MZ']
+    Mv.columns = ["MX", "MY", "MZ"]
     Mo = dataframe.iloc[:, [16, 17, 18]]
-    Mo.columns = ['MX', 'MY', 'MZ']
+    Mo.columns = ["MX", "MY", "MZ"]
 
     result = pd.concat([pd.concat([Time, Fp + Fv + Fo], axis=1), Mp + Mv + Mo], axis=1)
 
@@ -406,16 +403,25 @@ def resultant_force(dataframe, saver=False):
 
     return result
 
+
 def timeit(params):
     """Record the running time of the function, params passes in the display string"""
+
     def inner(func):
         def wrapper(*args, **kwargs):
             start_time = time.time()
             func(*args, **kwargs)
             end_time = time.time()
-            print(f'{params} running time：', np.around(end_time-start_time, decimals=2), 's')
+            print(
+                f"{params} running time：",
+                np.around(end_time - start_time, decimals=2),
+                "s",
+            )
+
         return wrapper
+
     return inner
+
 
 def read_foam_file(path, mandatory=False, saver=False, dimension=3):
     """Extract any file including system/probes, postProcessing/.*,
@@ -451,101 +457,169 @@ def read_foam_file(path, mandatory=False, saver=False, dimension=3):
     Mo: sum of moments induced by porous
     """
     # Determine whether to read the system/probe file
-    if path.split('/')[-2] == 'system':
-        if path.split('/')[-1] == 'probes':
-            with open(path, 'r') as f:
+    if path.split("/")[-2] == "system":
+        if path.split("/")[-1] == "probes":
+            with open(path, "r") as f:
                 content_total = f.read()
-                right_str = re.sub('\);?', '', re.sub('[ \t]*\(', '', content_total))
+                right_str = re.sub("\);?", "", re.sub("[ \t]*\(", "", content_total))
                 annotation_num = 0
-            for line in right_str.split('\n'):
-                if re.search('^-?\d+', line):
+            for line in right_str.split("\n"):
+                if re.search("^-?\d+", line):
                     break
                 annotation_num += 1
             right_content = StringIO(right_str)
-            data_frame_obj = pd.read_csv(right_content, sep=' ', skiprows=annotation_num, header=None,
-                                         names=['x', 'y', 'z'])
+            data_frame_obj = pd.read_csv(
+                right_content,
+                sep=" ",
+                skiprows=annotation_num,
+                header=None,
+                names=["x", "y", "z"],
+            )
         else:
             data_frame_obj = False
-            assert data_frame_obj, f'Unknown system/file type\n{path}'
+            assert data_frame_obj, f"Unknown system/file type\n{path}"
     # Determine whether to read postProcessing/* files
-    elif path.split('/')[-4] == 'postProcessing':
+    elif path.split("/")[-4] == "postProcessing":
         # Write the postProcess file to the variable content_total and count the number of comment lines annotation_num
-        with open(path, 'r') as f:
+        with open(path, "r") as f:
             content_total = f.read()
             f.seek(0)
             content_lines = f.readlines()
             annotation_num = 0
             for line in content_lines:
-                if line[0] == '#':
+                if line[0] == "#":
                     annotation_num += 1
                 else:
                     break
-        if path.split('/')[-1] == 'forces.dat':
-            column_name = ['Time']
-            column_name.extend(['Fpx', 'Fpy', 'Fpz'])
-            column_name.extend(['Fvx', 'Fvy', 'Fvz'])
-            column_name.extend(['Fox', 'Foy', 'Foz'])
-            column_name.extend(['Mpx', 'Mpy', 'Mpz'])
-            column_name.extend(['Mvx', 'Mvy', 'Mvz'])
-            column_name.extend(['Mox', 'Moy', 'Moz'])
-            right_content = StringIO(re.sub('\)', '', re.sub('\(', '', re.sub('\t+', '\t', re.sub(' +', '\t',
-                                                                                                  re.sub('# ', '',
-                                                                                                         re.sub(
-                                                                                                             '[ \t]+\n',
-                                                                                                             '\n',
-                                                                                                             content_total)))))))
-            data_frame_obj = pd.read_csv(right_content, sep='\t', skiprows=annotation_num, header=None, index_col=False,
-                                         names=column_name)
-        elif path.split('/')[-1] == 'p':
+        if path.split("/")[-1] == "forces.dat":
+            column_name = ["Time"]
+            column_name.extend(["Fpx", "Fpy", "Fpz"])
+            column_name.extend(["Fvx", "Fvy", "Fvz"])
+            column_name.extend(["Fox", "Foy", "Foz"])
+            column_name.extend(["Mpx", "Mpy", "Mpz"])
+            column_name.extend(["Mvx", "Mvy", "Mvz"])
+            column_name.extend(["Mox", "Moy", "Moz"])
             right_content = StringIO(
-                re.sub('\t\n', '\n', re.sub(' +', '\t', re.sub('# ', '', re.sub('[ \t]+\n', '\n', content_total)))))
-            data_frame_obj = pd.read_csv(right_content, sep='\t', skiprows=annotation_num - 1, index_col=False)
-        elif path.split('/')[-1] == 'U':
-            column_name = ['Time']
+                re.sub(
+                    "\)",
+                    "",
+                    re.sub(
+                        "\(",
+                        "",
+                        re.sub(
+                            "\t+",
+                            "\t",
+                            re.sub(
+                                " +",
+                                "\t",
+                                re.sub(
+                                    "# ", "", re.sub("[ \t]+\n", "\n", content_total)
+                                ),
+                            ),
+                        ),
+                    ),
+                )
+            )
+            data_frame_obj = pd.read_csv(
+                right_content,
+                sep="\t",
+                skiprows=annotation_num,
+                header=None,
+                index_col=False,
+                names=column_name,
+            )
+        elif path.split("/")[-1] == "p":
+            right_content = StringIO(
+                re.sub(
+                    "\t\n",
+                    "\n",
+                    re.sub(
+                        " +",
+                        "\t",
+                        re.sub("# ", "", re.sub("[ \t]+\n", "\n", content_total)),
+                    ),
+                )
+            )
+            data_frame_obj = pd.read_csv(
+                right_content, sep="\t", skiprows=annotation_num - 1, index_col=False
+            )
+        elif path.split("/")[-1] == "U":
+            column_name = ["Time"]
             for n in range(annotation_num - 1):
-                column_name.append(f'Ux_{n}')
-                column_name.append(f'Uy_{n}')
-                column_name.append(f'Uz_{n}')
+                column_name.append(f"Ux_{n}")
+                column_name.append(f"Uy_{n}")
+                column_name.append(f"Uz_{n}")
             # print(len(column_name))
             right_content = StringIO(
-                re.sub(' +', '\t', re.sub('[\(\)]', '', re.sub('# ', '', re.sub('[ \t]+\n', '\n', content_total)))))
-            data_frame_obj = pd.read_csv(right_content, sep='\t', skiprows=annotation_num, header=None, index_col=False,
-                                         names=column_name)
+                re.sub(
+                    " +",
+                    "\t",
+                    re.sub(
+                        "[\(\)]",
+                        "",
+                        re.sub("# ", "", re.sub("[ \t]+\n", "\n", content_total)),
+                    ),
+                )
+            )
+            data_frame_obj = pd.read_csv(
+                right_content,
+                sep="\t",
+                skiprows=annotation_num,
+                header=None,
+                index_col=False,
+                names=column_name,
+            )
             if dimension == 2:
-                drop_column = [i for i in column_name if re.search('^Uz_\d', i)]
+                drop_column = [i for i in column_name if re.search("^Uz_\d", i)]
                 data_frame_obj.drop(drop_column, axis=1, inplace=True)
-        elif path.split('/')[-1] == 'forceCoeffs.dat':
-            column_name = ['Time', 'Cm', 'Cd', 'Cl', 'Cl(f)', 'Cl(r)']
-            right_content = StringIO(re.sub('[ \t]+', '\t', re.sub('[ \t]+\n', '\n', content_total)))
-            data_frame_obj = pd.read_csv(right_content, sep='\t', skiprows=annotation_num, header=None, index_col=False,
-                                         names=column_name)
+        elif path.split("/")[-1] == "forceCoeffs.dat":
+            column_name = ["Time", "Cm", "Cd", "Cl", "Cl(f)", "Cl(r)"]
+            right_content = StringIO(
+                re.sub("[ \t]+", "\t", re.sub("[ \t]+\n", "\n", content_total))
+            )
+            data_frame_obj = pd.read_csv(
+                right_content,
+                sep="\t",
+                skiprows=annotation_num,
+                header=None,
+                index_col=False,
+                names=column_name,
+            )
         # If they do not match, return an error directly
         else:
             if mandatory:
-                right_content = StringIO(re.sub(' ', '', re.sub('# ', '', content_total)))
-                data_frame_obj = pd.read_csv(right_content, sep='\t', skiprows=annotation_num, header=None)
+                right_content = StringIO(
+                    re.sub(" ", "", re.sub("# ", "", content_total))
+                )
+                data_frame_obj = pd.read_csv(
+                    right_content, sep="\t", skiprows=annotation_num, header=None
+                )
             else:
                 data_frame_obj = -1
-                assert 0, f'Unknown file type, you can force function to read it by using \'mandatory\' parameters (scalar-like data structure)\n{path}'
-    elif path.split('/')[-1] == 'displacement':
-         with open(path, 'r') as f:
-                content_total = f.read()
-                right_str = re.sub('\);?', '', re.sub('[ \t]*\(', '', content_total))
-                annotation_num = 0
-         for line in right_str.split('\n'):
-                if re.search('^-?\d+', line):
-                    break
-                annotation_num += 1
-         right_content = StringIO(right_str)
-         data_frame_obj = pd.read_csv(right_content,header=None, )
+                assert 0, f"Unknown file type, you can force function to read it by using 'mandatory' parameters (scalar-like data structure)\n{path}"
+    elif path.split("/")[-1] == "displacement":
+        with open(path, "r") as f:
+            content_total = f.read()
+            right_str = re.sub("\);?", "", re.sub("[ \t]*\(", "", content_total))
+            annotation_num = 0
+        for line in right_str.split("\n"):
+            if re.search("^-?\d+", line):
+                break
+            annotation_num += 1
+        right_content = StringIO(right_str)
+        data_frame_obj = pd.read_csv(
+            right_content,
+            header=None,
+        )
     else:
         data_frame_obj = -1
-        assert 0, f'Unknown folder path\n{path}'
+        assert 0, f"Unknown folder path\n{path}"
 
     if saver:
         data_frame_obj.to_csv(saver, index=False, header=False)
 
     return data_frame_obj
+
 
 def actions2dict(entry_dict, reinforcement_learning_var, agent_actions):
     """Write parameters to velocity or pressure files in OpenFOAM.
@@ -595,14 +669,15 @@ def actions2dict(entry_dict, reinforcement_learning_var, agent_actions):
     mapping_dict = dict(zip(reinforcement_learning_var, agent_actions))
 
     entry_str_org = json.dumps(entry_dict, indent=4)
-    entry_str_temp = re.sub(r'{\n', r'{{\n', entry_str_org)
-    entry_str_temp = re.sub(r'}\n', r'}}\n', entry_str_temp)
-    entry_str_temp = re.sub(r'}$', r'}}', entry_str_temp)
-    entry_str_temp = re.sub(r'},', r'}},', entry_str_temp)
+    entry_str_temp = re.sub(r"{\n", r"{{\n", entry_str_org)
+    entry_str_temp = re.sub(r"}\n", r"}}\n", entry_str_temp)
+    entry_str_temp = re.sub(r"}$", r"}}", entry_str_temp)
+    entry_str_temp = re.sub(r"},", r"}},", entry_str_temp)
     entry_str_final = eval(f'f"""{entry_str_temp}"""', mapping_dict)
     actions_dict = json.loads(entry_str_final)
 
     return actions_dict
+
 
 def dict2foam(flow_var_directory, actions_dict):
     """Write parameters to velocity or pressure files in OpenFOAM.
@@ -619,15 +694,18 @@ def dict2foam(flow_var_directory, actions_dict):
     from DRLinFluids.utils import dict2foam
     """
     for flow_var, flow_dict in actions_dict.items():
-        with open('/'.join([flow_var_directory, flow_var]), 'r+') as f:
+        with open("/".join([flow_var_directory, flow_var]), "r+") as f:
             content = f.read()
             for entry, value_dict in flow_dict.items():
                 for keyword, value in value_dict.items():
-                    content = re.sub(f'({entry}(?:\n.*?)*{keyword}\s+).*;', f'\g<1>{value};', content)
+                    content = re.sub(
+                        f"({entry}(?:\n.*?)*{keyword}\s+).*;", f"\g<1>{value};", content
+                    )
                 # content = re.sub(f'({entry}(?:\n.*?)*value\s+uniform\s+).*;', f'\g<1>{value};', content)
             f.seek(0)
             f.truncate()
             f.write(content)
+
 
 def get_current_time_path(path):
     """Enter the root directory of the OpenFOAM study, the return value is
@@ -652,13 +730,13 @@ def get_current_time_path(path):
     time_list = [i for i in os.listdir(path)]
     temp_list = time_list
     for i, value in enumerate(time_list):
-        if re.search('^\d+\.?\d*', value):
+        if re.search("^\d+\.?\d*", value):
             pass
         else:
             temp_list[i] = -1
     time_list_to_num = [np.float(i) for i in temp_list]
     start_time_str = time_list[np.argmax(time_list_to_num)]
-    start_time_path = '/'.join([path, start_time_str])
+    start_time_path = "/".join([path, start_time_str])
 
     return start_time_str, start_time_path
 
