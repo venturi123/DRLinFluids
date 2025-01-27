@@ -152,7 +152,7 @@ Qiulei Wang (王秋垒), Lei Yan (严雷), Gang Hu (胡钢), Chao Li (李朝), Y
 2. [Deep reinforcement learning-based active flow control of vortex-induced vibration of a square cylinder](https://doi.org/10.1063/5.0152777) (Archived to DRLinFluids examples)
 3. [Stabilizing the square cylinder wake using deep reinforcement learning for different jet locations](https://doi.org/10.1063/5.0171188) 
 4. [Aerodynamic force reduction of rectangular cylinder using deep reinforcement learning-controlled multiple jets](https://doi.org/10.1063/5.0189009)
-5. [Intelligent active flow control of long-span bridge deck using deep reinforcement learning integrated transfer learning](https://doi.org/10.1016/j.jweia.2023.105632)
+5. [Intelligent active flow control of long-span bridge deck using deep reinforcement learning integrated transfer learning](https://doi.org/10.1016/j.jweia.2023.105632) (Archived to DRLinFluids examples)
 6. [Dynamic feature-based deep reinforcement learning for flow control of circular cylinder with sparse surface pressure sensing](https://doi.org/10.1017/jfm.2024.333) (Archived to DRLinFluids examples)
 
 To be continued ...
