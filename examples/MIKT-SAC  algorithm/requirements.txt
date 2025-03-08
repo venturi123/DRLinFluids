@@ -1,0 +1,7 @@
+tianshou==0.4.9
+peakutils
+scikit-learn
+matplotlib
+numpy==1.23.5
+pandas
+gym==0.22.0

@@ -1,0 +1,46 @@
+bash script_ssh_forward_socket.sh tra1 3000 5 LPF@10.249.159.181
+bash script_ssh_forward_socket.sh tra2 3005 5 guangnnan@10.249.158.229
+bash script_ssh_forward_socket.sh tra3 3010 5 aiwe@10.249.156.0
+bash script_ssh_forward_socket.sh tra4 3015 5 aiwe1@10.249.158.84
+bash script_ssh_forward_socket.sh tra6 3025 5 junle@10.249.152.93
+bash script_ssh_forward_socket.sh tra7 3030 5 gao@10.249.153.184
+bash script_ssh_forward_socket.sh tra8 3035 5 ycy@10.249.158.75
+bash script_ssh_forward_socket.sh tra5 3020 5 ubuntu@10.249.158.102
+bash script_ssh_forward_socket.sh tra5 3020 5 jxh@10.249.157.17
+
+
+python anntime_biaozhunhua_gaoRE_4actions/launch_servers.py -n 5 -p 3000
+python anntime_biaozhunhua_gaoRE_4actions/launch_servers.py -n 5 -p 3005
+python anntime_biaozhunhua_gaoRE_4actions/launch_servers.py -n 5 -p 3010
+python anntime_biaozhunhua_gaoRE_4actions/launch_servers.py -n 5 -p 3015
+python anntime_biaozhunhua_gaoRE_4actions/launch_servers.py -n 5 -p 3020
+python anntime_biaozhunhua_gaoRE_4actions/launch_servers.py -n 5 -p 3025
+python anntime_biaozhunhua_gaoRE_4actions/launch_servers.py -n 5 -p 3030
+python anntime_biaozhunhua_gaoRE_4actions/launch_servers.py -n 5 -p 3035
+
+
+python anntime_biaozhunhua_cylinder/launch_parallel_training.py -n 40 -p 3000
+
+systemctl stop firewalld.service
+firewall-cmd --state
+sudo apt-get install openssh-server
+sudo systemctl enable ssh
+sudo systemctl status ssh
+#保存驱动型号
+cat /proc/driver/nvidia/version
+sudo apt-mark hold nvidia-driver-470
+
+#22000
+sudo bash script_ssh_forward_socket.sh tra11 3000 2 LPF@10.249.159.181
+sudo bash script_ssh_forward_socket.sh tra14 3002 2 aiwe1@10.249.158.84
+sudo bash script_ssh_forward_socket.sh tra16 3004 2 junle@10.249.152.93
+sudo bash script_ssh_forward_socket.sh tra18 3006 2 ubuntu@10.249.158.102
+sudo bash script_ssh_forward_socket.sh tra15 3008 2 jxh@10.249.157.17
+
+python anntime_MIKT_SAC_4actions/launch_servers.py -n 2 -p 3000
+python anntime_MIKT_SAC_4actions/launch_servers.py -n 2 -p 3002
+python anntime_MIKT_SAC_4actions/launch_servers.py -n 2 -p 3004
+python anntime_MIKT_SAC_4actions/launch_servers.py -n 2 -p 3006
+python anntime_MIKT_SAC_4actions/launch_servers.py -n 2 -p 3008
+
+python anntime_MIKT_SAC_4actions/launch_MIKT_SAC.py -n 10 -p 3000
