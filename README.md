@@ -154,6 +154,8 @@ Qiulei Wang (王秋垒), Lei Yan (严雷), Gang Hu (胡钢), Chao Li (李朝), Y
 4. [Aerodynamic force reduction of rectangular cylinder using deep reinforcement learning-controlled multiple jets](https://doi.org/10.1063/5.0189009)
 5. [Intelligent active flow control of long-span bridge deck using deep reinforcement learning integrated transfer learning](https://doi.org/10.1016/j.jweia.2023.105632)
 6. [Dynamic feature-based deep reinforcement learning for flow control of circular cylinder with sparse surface pressure sensing](https://doi.org/10.1017/jfm.2024.333) (Archived to DRLinFluids examples)
+7. [Active flow control of square cylinder adaptive to wind direction using deep reinforcement learning](https://doi.org/10.1103/PhysRevFluids.9.094607)
+8. [Deep reinforcement cross-domain transfer learning of active flow control for three-dimensional bluff body flow](https://doi.org/10.1016/j.jcp.2025.113893) (MIKT-SAC algorithm archived to DRLinFluids examples)
 
 To be continued ...
 ## Contributing
